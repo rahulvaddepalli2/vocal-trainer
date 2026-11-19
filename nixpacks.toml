@@ -2,7 +2,7 @@
 nixPkgs = ["python311", "python311Packages.pip", "ffmpeg", "libsndfile"]
 
 [phases.install]
-cmds = ["pip install fastapi==0.111.0 'uvicorn[standard]==0.30.1' python-multipart==0.0.9 websockets==12.0 librosa==0.10.2 numpy==1.26.4 scipy==1.13.0"]
+cmds = ["pip install fastapi==0.111.0 'uvicorn[standard]==0.30.1' python-multipart==0.0.9 websockets==12.0 librosa==0.10.2 'numpy>=1.26.4' 'scipy>=1.14.0'"]
 
 [start]
 cmd = "uvicorn main:app --host 0.0.0.0 --port $PORT"
