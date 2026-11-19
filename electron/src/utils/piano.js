@@ -10,7 +10,8 @@ const SAMPLE_MAP = {
 };
 const SAMPLE_MIDIS = Object.keys(SAMPLE_MAP).map(Number).sort((a, b) => a - b);
 const IS_ELECTRON = /electron/i.test(navigator.userAgent);
-const LOCAL_BASE = IS_ELECTRON ? "http://127.0.0.1:8000/piano/" : "/piano/";
+const ENV_API = import.meta.env.VITE_API_BASE || "";
+const LOCAL_BASE = IS_ELECTRON ? "http://127.0.0.1:8000/piano/" : `${ENV_API}/piano/`;
 
 const blobCache = new Map();
 
