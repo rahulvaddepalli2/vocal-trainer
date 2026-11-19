@@ -1,0 +1,38 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+*.egg-info/
+
+# Backend secrets & data
+backend/.env
+backend/uploads/
+backend/piano_samples/
+backend/dev.db
+backend/*.db
+backend/stems/
+
+# Node
+node_modules/
+electron/node_modules/
+
+# Build output
+electron/dist/
+electron/dist-electron/
+
+# Env files (may contain API keys)
+.env
+.env.local
+*.env.local
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# Certs (contain private keys)
+*.pem
+*-key.pem
