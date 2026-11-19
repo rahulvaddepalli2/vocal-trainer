@@ -14,6 +14,9 @@ function loadCert() {
   }
 }
 
+const BACKEND = process.env.VITE_API_BASE || "http://localhost:8000";
+const WS_BACKEND = BACKEND.replace(/^https/, "wss").replace(/^http/, "ws");
+
 export default defineConfig({
   plugins: [react()],
   base: "./",

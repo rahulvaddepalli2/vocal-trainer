@@ -3,10 +3,13 @@ import { yin, rms } from "../utils/yin";
 
 const IS_ELECTRON = /electron/i.test(navigator.userAgent);
 
-export const API_BASE = IS_ELECTRON ? "http://127.0.0.1:8000" : "";
+const ENV_API = import.meta.env.VITE_API_BASE || "";
+export const API_BASE = IS_ELECTRON ? "http://127.0.0.1:8000" : ENV_API;
 export const WS_BASE  = IS_ELECTRON
   ? "ws://127.0.0.1:8000"
-  : (window.location.protocol === "https:" ? "wss" : "ws") + "://" + window.location.host;
+  : ENV_API
+    ? ENV_API.replace(/^https/, "wss").replace(/^http/, "ws")
+    : (window.location.protocol === "https:" ? "wss" : "ws") + "://" + window.location.host;
 
 const NOTE_NAMES = ["C","C#","D","D#","E","F","F#","G","G#","A","A#","B"];
 
