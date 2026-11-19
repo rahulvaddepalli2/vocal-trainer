@@ -9,9 +9,13 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Optional
 
-import sounddevice as sd
 import librosa
 import numpy as np
+try:
+    import sounddevice as sd
+    HAS_SOUNDDEVICE = True
+except Exception:
+    HAS_SOUNDDEVICE = False
 from fastapi import FastAPI, File, Form, UploadFile, WebSocket, WebSocketDisconnect, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse, StreamingResponse, FileResponse
@@ -313,6 +317,10 @@ def hz_to_midi(hz: float) -> float:
 @app.websocket("/pitch")
 async def pitch_ws(websocket: WebSocket):
     await websocket.accept()
+    if not HAS_SOUNDDEVICE:
+        await websocket.send_text(json.dumps({"error": "no audio device"}))
+        await websocket.close()
+        return
 
     loop = asyncio.get_event_loop()
     queue: asyncio.Queue = asyncio.Queue()
